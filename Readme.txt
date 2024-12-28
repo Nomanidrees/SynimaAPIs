@@ -1,6 +1,12 @@
 .Net Core web APIs
 Clean Architecture Pattern with CQRS, MediatR
 
+Dependencies Between Layers
+The dependencies flow as follows:
+ - Domain: No dependencies on any other layer.
+ - Application: Depends on the Domain layer.
+ - Infrastructure: Depends on Application and Domain layers (implements interfaces defined in them).
+ - Presentation: Depends on Application (via MediatR or service injection).
 Domain Layer
   → The project that contains the domain layer, including the entities, value objects, and domain services
 Application Layer
@@ -10,9 +16,3 @@ Infrastructure Layer
 Presentation Layer
   → The main project contains the presentation layer and implements the ASP.NET Core web API. It should reference the Application and Infrastructure projects.
 
-Dependencies Between Layers
-The dependencies flow as follows:
- - Domain: No dependencies on any other layer.
- - Application: Depends on the Domain layer.
- - Infrastructure: Depends on Application and Domain layers (implements interfaces defined in them).
- - Presentation: Depends on Application (via MediatR or service injection).
