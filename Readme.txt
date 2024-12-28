@@ -7,6 +7,7 @@ The dependencies flow as follows:
  - Application: Depends on the Domain layer.
  - Infrastructure: Depends on Application and Domain layers (implements interfaces defined in them).
  - Presentation: Depends on Application (via MediatR or service injection).
+
 Domain Layer
   → The project that contains the domain layer, including the entities, value objects, and domain services
 Application Layer
