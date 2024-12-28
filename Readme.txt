@@ -8,4 +8,4 @@ Application Layer
 Infrastructure Layer
   → The project contains the infrastructure layer, including the implementation of data access,db, Repositories, logging, email, and other communication mechanisms. It should reference the Application project.
 Presentation Layer
-  →	The main project contains the presentation layer and implements the ASP.NET Core web API. It should reference the Application and Infrastructure projects.
+  →The main project contains the presentation layer and implements the ASP.NET Core web API. It should reference the Application and Infrastructure projects.
