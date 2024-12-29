@@ -1,4 +1,4 @@
-.Net Core web APIs
+.Net 8 Core web APIs 
 Clean Architecture Pattern with CQRS, MediatR
 
 Dependencies Between Layers
