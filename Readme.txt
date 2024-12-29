@@ -17,3 +17,29 @@ Infrastructure Layer
 Presentation Layer
   → The main project contains the presentation layer and implements the ASP.NET Core web API. It should reference the Application and Infrastructure projects.
 
+JWT Implementation
+- Solution
+  - Domain
+    - Entities/
+      - User.cs
+    - Interfaces/
+      - IUserRepository.cs
+  - Application
+    - DTOs/
+      - LoginRequestDto.cs
+      - LoginResponseDto.cs
+    - Commands/
+      - AuthenticateUserCommand.cs
+    - Interfaces/
+      - IJwtTokenService.cs
+    - Services/
+      - JwtTokenService.cs
+  - Infrastructure
+    - Repositories/
+      - UserRepository.cs
+    - Services/
+      - JwtTokenService.cs
+  - Presentation
+    - Controllers/
+      - AuthController.cs
+  - appsettings.json
