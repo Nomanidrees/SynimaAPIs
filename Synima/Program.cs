@@ -1,12 +1,19 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using SYN.Application.Interfaces;
+
+using SYN.Domain.Interfaces;
 using SYN.Domain.Options;
+using SYN.Infrastructure.Repositories;
+
+using SYN.Infrastructure.Services;
+
 using Synima;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-var key = Encoding.UTF8.GetBytes("SyntigicPasswordKey!S@lmanNom@nYaw@rTechInnovationLogic"); // Replace with a strong secret key.
+//var key = Encoding.UTF8.GetBytes("SyntigicPasswordKey!S@lmanNom@nYaw@rTechInnovationLogic"); // Replace with a strong secret key.
 
 // Add CORS services
 // Add services to the DI container.
@@ -21,6 +28,12 @@ builder.Services.AddCors(options =>
         });
 });
 
+// Bind JwtOptions
+builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(JwtOptions.SectionName));
+
+// Register authentication using JWT
+var jwtOptions = builder.Configuration.GetSection(JwtOptions.SectionName).Get<JwtOptions>();
+var key = Encoding.UTF8.GetBytes(jwtOptions.Key);
 
 builder.Services.AddAuthentication(options =>
 {
@@ -35,11 +48,17 @@ builder.Services.AddAuthentication(options =>
     {
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(key),
-        ValidateIssuer = false,
-        ValidateAudience = false
+        ValidateIssuer = true,
+        ValidIssuer = jwtOptions.Issuer,
+        ValidateAudience = true,
+        ValidAudience = jwtOptions.Audience,
+        ValidateLifetime = true // Ensure token expiration is validated
     };
 });
 
+// Add dependency injection for IUserRepository and IJwtTokenService
+//builder.Services.AddScoped<IUserRepository, UserRepository>();
+//builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -67,7 +86,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+//app.UseAuthentication();
 app.UseAuthorization();
 
 // Apply CORS policy

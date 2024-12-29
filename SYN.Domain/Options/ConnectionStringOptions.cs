@@ -8,8 +8,7 @@ namespace SYN.Domain.Options
 {
     public class ConnectionStringOptions
     {
-        public const string SectionName = "ConnectionString";
-
+        public const string SectionName = "ConnectionStrings";
         public string dbcs { get; set; } = null!;
     }
 }

@@ -9,7 +9,7 @@ namespace Synima
         public static IServiceCollection AddSynAppDI(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddApplicationDI()
-                .AddInfrastructureDI()
+                .AddInfrastructureDI(configuration)
                 .AddDomainDI(configuration);
 
             return services;
