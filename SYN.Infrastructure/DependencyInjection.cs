@@ -37,7 +37,10 @@ namespace SYN.Infrastructure
             // Register Repositories and Services
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IJwtTokenService, JwtTokenService>();
-             
+            services.AddScoped<IFormElementRepository, FormElementRepository>();
+            services.AddScoped<IFormService, FormService>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+
 
             return services;
         }

@@ -6,7 +6,7 @@ namespace SYN.Application.Queries
 {
     public record GetAllEmployeeQuery : IRequest<IEnumerable<EmployeeEntity>>;
 
-    internal class GetAllEmployeeQueryHandler(IEmployeeRepositories employeeRepositories) :
+    public class GetAllEmployeeQueryHandler(IEmployeeRepositories employeeRepositories) :
         IRequestHandler<GetAllEmployeeQuery, IEnumerable<EmployeeEntity>>
     {
         public async Task<IEnumerable<EmployeeEntity>> Handle(GetAllEmployeeQuery request, CancellationToken cancellationToken)

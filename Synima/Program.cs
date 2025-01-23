@@ -15,19 +15,6 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 //var key = Encoding.UTF8.GetBytes("SyntigicPasswordKey!S@lmanNom@nYaw@rTechInnovationLogic"); // Replace with a strong secret key.
 
-// Add CORS services
-// Add services to the DI container.
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowReactApp",
-        policy =>
-        {
-            policy.WithOrigins("http://localhost:3000") // React app URL
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
-        });
-});
-
 // Bind JwtOptions
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(JwtOptions.SectionName));
 
@@ -76,6 +63,27 @@ var config = provider.GetRequiredService<IConfiguration>();
 // Inject the DI services Synima namespace
 builder.Services.AddSynAppDI(builder.Configuration);
 
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowReactApp",
+//        policy =>
+//        {
+//            policy.WithOrigins("http://localhost:3000") // React app URL
+//                  .AllowAnyHeader()
+//                  .AllowAnyMethod();
+//        });
+//});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -89,8 +97,12 @@ app.UseHttpsRedirection();
 //app.UseAuthentication();
 app.UseAuthorization();
 
+// Add CORS services
+// Add services to the DI container.
+
 // Apply CORS policy
-app.UseCors("AllowReactApp");
+//app.UseCors("AllowReactApp");
+app.UseCors("AllowAll");
 
 app.MapControllers();
 

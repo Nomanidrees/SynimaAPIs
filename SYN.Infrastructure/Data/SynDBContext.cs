@@ -10,6 +10,9 @@ namespace SYN.Infrastructure.Data
         //public SynDBContext(DbContextOptions<SynDBContext> options) : base(options) { }
         public DbSet<EmployeeEntity> Employees { get; set; }
         public DbSet<UserEntity> User { get; set; }
+        public DbSet<FormElement> FormElements { get; set; }
+        public DbSet<Form> Forms { get; set; }
+        public DbSet<CustomerEntity> Customer { get; set; }
     }
 }
      
